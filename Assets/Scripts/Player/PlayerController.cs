@@ -26,6 +26,8 @@ public class PlayerController
         this.playerScriptableObject = playerScriptableObject;
         this.playerScriptableObject.KeysEquipped = 0;
 
+        LightSwitchView.LightSwitch += LightSwitchToggled;
+
         playerState = PlayerState.InDark;
         EventService.Instance.LightsOffByGhostEvent.AddListener(OnLightsOffByGhost);
         EventService.Instance.LightSwitchToggleEvent.AddListener(OnLightsToggled);
@@ -91,5 +93,14 @@ public class PlayerController
     {
         EventService.Instance.LightsOffByGhostEvent.RemoveListener(OnLightsOffByGhost);
         EventService.Instance.LightSwitchToggleEvent.RemoveListener(OnLightsToggled);
+    }
+
+    private void LightSwitchToggled()
+    {
+        Debug.Log("PlayerCntroller -> LightSwitchToggled");
+        if (PlayerState == PlayerState.InDark)
+            PlayerState = PlayerState.None;
+        else
+            PlayerState = PlayerState.InDark;
     }
 }
