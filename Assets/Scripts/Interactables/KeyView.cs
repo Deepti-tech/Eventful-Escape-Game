@@ -5,10 +5,11 @@ public class KeyView : MonoBehaviour, IInteractable
     
     public void Interact()
     {
+        int currentkeys = GameService.Instance.GetPlayerController().KeysEquipped;
         GameService.Instance.GetInstructionView().HideInstruction();
         GameService.Instance.GetSoundView().PlaySoundEffects(SoundType.KeyPickUp);
-        GameService.Instance.GetPlayerController().KeysEquipped++;
-        //EventService.Instance.OnKeyPickedUp.InvokeEvent()
+        currentkeys++;
+        EventService.Instance.OnKeyPickedUp.InvokeEvent(currentkeys);
         gameObject.SetActive(false);
     }
 }
